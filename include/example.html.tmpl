@@ -1,0 +1,57 @@
+<!doctype html>
+<html><head>
+    <title>Test</title>
+        <!-- Подключаем API -->
+        <script src="http://api-maps.yandex.ru/1.1/index.xml?key=$[apiKey]&modules=hotspots" type="text/javascript"></script>
+        <!-- Подключаем файл со стилями -->
+        <script src="$[stylesFile]" type="text/javascript"></script>
+        <script type="text/javascript">
+        window.onload = function () {
+            // Создаем и инициализируем карту
+            var map = new YMaps.Map(document.getElementById("YMapsID"));
+            map.setCenter(new YMaps.GeoPoint(37.64, 55.76), 0);
+
+            // Вспомогательная функция обработки шаблонов
+            function processTemplate (template, tile, zoom) {
+                return template.replace(/%x/ig, tile.getX()).replace(/%y/ig, tile.getY()).replace(/%z/ig, zoom);
+            }
+
+            // Источник тайлов с изображениями
+            var ds = new YMaps.TileDataSource('$[imageTemplate]', 1, 0);
+            ds.getTileUrl = function (tileNumber, zoom) {
+                return processTemplate(
+                    YMaps.TileDataSource.prototype.getTileUrl.call(this, tileNumber, zoom),
+                    tileNumber,
+                    zoom
+                );
+            };
+            // Добавляем "картиночный" слой на карту
+            map.addLayer(new YMaps.Layer(ds));
+
+            // Источник тайлов с описаниями активных областей
+            var os = new YMaps.Hotspots.ObjectSource('$[jsTemplate]', '$[keyTemplate]');
+            os.getTileUrl = function (tileNumber, zoom) {
+                return processTemplate(
+                    YMaps.Hotspots.ObjectSource.prototype.getTileUrl.call(this, tileNumber, zoom),
+                    tileNumber,
+                    zoom
+                );
+            };
+            os.getKey = function (tileNumber, zoom) {
+                return processTemplate(
+                    YMaps.Hotspots.ObjectSource.prototype.getKey.call(this, tileNumber, zoom),
+                    tileNumber,
+                    zoom
+                );
+            };
+            // Добавляем слой активных областей на карту
+            var hLayer = new YMaps.Hotspots.Layer(os);
+            map.addLayer(hLayer);
+
+            map.enableScrollZoom();
+        }
+    </script>
+</head><body>
+    <div id="YMapsID" style="height: 700px; width: 1200px;"></div>
+    <a href="../index.php">Back</a>
+</body></html>
