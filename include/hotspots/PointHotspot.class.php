@@ -19,8 +19,8 @@
             $style = isset($json['style']) ? $json['style'] : NULL;
             $this->style = Styles::getComputedStyle($style, $groupStyle, true);
 
-            $metaData = isset($json['metaDataProperty']) && isset($json['metaDataProperty']['anyMetaData']) ?
-                            $json['metaDataProperty']['anyMetaData'] :
+            $metaData = isset($json['metaDataProperty']) && isset($json['metaDataProperty']['AnyMetaData']) ?
+                            $json['metaDataProperty']['AnyMetaData'] :
                             array();
             
             $this->priority = isset($metaData['priority']) ? floatval($metaData['priority']) : 0;
