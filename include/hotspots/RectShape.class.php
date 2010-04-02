@@ -50,7 +50,7 @@
                 ($this->left - $base->getX()) . ',' .
                 ($this->bottom - $base->getY()) . ',' .
                 ($this->right - $base->getX()) . ',' .
-                ($this->top - $base->getY()) . ',' .
+                ($this->top - $base->getY()) .
             ']';
         }
     }

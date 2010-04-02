@@ -4,7 +4,7 @@
 
     $options = Array(
         // YMapsML-файл
-        'XML' => 'prokudin.xml',
+        'XML' => 'myLayer.xml',
         // Минимальный коэффициент масштабирования,
         // начиная с которого требуется подготовить тайлы
         'minZoom' => 4,
@@ -13,7 +13,7 @@
         'maxZoom' => 15,
         // Папка для размещения тайлов, примера
         // и файла со стилями
-        'directory' => 'prokudin',
+        'directory' => 'myLayer',
         // Права доступа, которые будут выставлены
         // всем создаваемым папкам
         'permissions' => 0774,
@@ -22,9 +22,9 @@
         // Шаблон имени тайла с описанием данных
         'jsTemplate' => 'js/%z/tile-%x-%y.js',
         // Шаблон ключа запроса
-        'keyTemplate' => 'prokudin-%x-%y-%z',
+        'keyTemplate' => 'myLayer-%x-%y-%z',
         // Префикс имени стиля
-        'styleKey' => 'prokudin',
+        'styleKey' => 'myLayer',
         // Имя файла со стилями
         'stylesFile' => 'styles.js',
         // Процессор изображений

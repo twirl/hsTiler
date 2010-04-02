@@ -19,19 +19,14 @@
                 'collection' => array()
             );
 
-            $length = filesize($file);
-            if (!$length) {
-                throw new Exception('Ресурс "'.htmlspecialchars($file).'" имеет нулевые размеры');
-            }
-
-            $handle = fopen($file, 'r');
-            if (!$handle) {
+            // Читаем из файла
+            $text = file_get_contents($file);
+            if (!$text) {
                 throw new Exception('Ресурс "'.htmlspecialchars($file).'" недоступен для чтения');
             }
 
             $dom = new DOMDocument();
-            $dom->loadXML(fread($handle, $length));
-            fclose($handle);
+            $dom->loadXML($text);
 
             if (!$dom) {
                 throw new Exception('Ресурс "'.htmlspecialchars($file).'" не является XML-документом');
