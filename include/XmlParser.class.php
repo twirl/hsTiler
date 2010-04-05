@@ -242,6 +242,9 @@
          * @return String Строковое представление содержимого DOM-элемента
          */
         private static function mapHTML ($element) {
+            if (self::isTextNode($element)) {
+                return self::nodeValue($element);
+            }
             $text = $element->ownerDocument->saveXML($element);
             return str_replace(
                 array('<' . $element->nodeName . '>', '</' . $element->nodeName . '>', '<' . $element->nodeName . '/>'),
